@@ -1,0 +1,267 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">List of Needs</h4>
+                      <p class="card-category"> </p>
+                  </div>
+                  <div class="card-body">
+
+  <br><br>
+
+  <!-- Form for adding a new besoin -->
+  <form [formGroup]="besoinForm" (ngSubmit)="addBesoin()">
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="col ">
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter the title">
+              <div *ngIf="besoinForm.get('title').invalid && besoinForm.get('title').touched">
+                <div *ngIf="besoinForm.get('title').errors.required">Title is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+           
+          </div>
+        </div>
+  <!--
+        <div class="row">
+          <div class="col mb-3">
+            <input type="file" (change)="onFileSelected($event)" style="display: none" id="fileInput">
+          
+            <label for="fileInput" class="btn btn-outline-primary">
+              <i class="fa fa-image"></i>
+            </label>
+          </di
+        
+  
+  
+  
+  
+  
+      
+
+        <div class="row">
+          <div class="col mb-3">
+            <div class="form-group">
+              <label for="type">Type:</label>
+              <select class="form-control" id="type" formControlName="type" [(ngModel)]="selectedType">
+                <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+              </select>
+            </div>
+          </div>
+        </div>-->
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="date">Date:</label>
+              <input type="date" class="form-control" id="date" formControlName="date" placeholder="Enter the date">
+              <div *ngIf="besoinForm.get('date').invalid && besoinForm.get('date').touched">
+                <div *ngIf="besoinForm.get('date').errors.required">Date is required.</div>
+              </div>
+            </div> 
+          </div>
+        </div> 
+        
+        <div class="row">
+          <div class="col">
+        <div class="form-group">
+          <i class="bi bi-circle-fill"></i> <!-- Icon, can be replaced with any desired icon -->
+          <select class="form-control" id="type"  formControlName="type" placeholder="Affiche">
+              <!-- Dropdown select element for choosing the type -->
+              <option>Affiche</option> 
+              <option>Logo</option> 
+              <option>Badge</option> 
+              <option>Brochure</option> 
+          </select>
+      </div>
+    </div>
+  </div> 
+
+        <div class="row">
+          <div class="col mb-3">
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea class="form-control" rows="5" id="description" formControlName="description" placeholder="Enter the description"></textarea>
+              <div *ngIf="besoinForm.get('description').invalid && besoinForm.get('description').touched">
+                <div *ngIf="besoinForm.get('description').errors.required">Description is required.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+  </form>
+  <hr>
+
+</div>
+
+<div class="card-body">
+ <!-- List of besoins -->
+<!-- List of besoins -->
+<!-- List of besoins -->
+<h2>Liste des Besoins</h2>
+<table class="table">
+    <!-- Table header... -->
+    <tbody>
+      <!-- Display regular text or input fields based on isEditing -->
+      <tr *ngFor="let besoin of besoins">
+        <ng-container *ngIf="!isEditing || (selectedBesoin?.besoinId !== besoin.besoinId); else editRow">
+          <!-- Display regular text -->
+          <td>{{ besoin.besoinId }}</td>
+          <td>{{ besoin.title }}</td>
+          <td>{{ besoin.description }}</td>
+          <td>{{ besoin.date | date: 'medium' }}</td>
+          <td>{{ besoin.image }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="updateBesoin(besoin)">Modifier</button>
+            <button class="btn btn-danger" (click)="deleteBesoin(besoin.besoinId)">Supprimer</button>
+          </td>
+        </ng-container>
+        <ng-template #editRow>
+          <!-- Display input fields for editing -->
+          <td>{{ besoin.besoinId }}</td>
+          <td><input [(ngModel)]="besoin.title" /></td>
+          <td><input [(ngModel)]="besoin.description" /></td>
+          <td>
+            <input [(ngModel)]="besoin.date" [matDatepicker]="datepicker" />
+            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+          </td>
+          <td><input [(ngModel)]="besoin.image" /></td>
+          <td>
+            <button class="btn btn-success" (click)="saveUpdate(besoin)">
+                <i class="fas fa-check"></i> <!-- Font Awesome check icon -->
+              </button>
+              <button class="btn btn-warning" (click)="cancelUpdate(besoin)">
+                <i class="fas fa-times"></i> <!-- Font Awesome times icon -->
+              </button>
+          </td>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+
+  
+
+</div>
+
+
+
+
+
+<!-- Liste des Besoins -->
+<div class="schedules-area pd-top-110 pd-bottom-120">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-7 col-lg-8">
+        <div class="section-title text-center">
+          <h2>Liste des Besoins</h2>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content" id="ex1-content">
+      <div class="tab-pane fade active show" id="ex1-tabs-1" role="tabpanel">
+        <div class="row">
+          <div class="col-lg-4 col-md-6" *ngFor="let besoin of besoins">
+            <div class="single-schedules-inner">
+              <div class="date">
+                <i class="fa fa-calendar"></i>
+                {{ besoin.date | date: 'medium' }}
+              </div>
+              <h5>{{ besoin.title }}</h5>
+              <p>{{ besoin.description }}</p>
+              <div class="media">
+                <div class="media-left">
+                  <img *ngIf="besoin.photoString" [src]="besoin.photoString" alt="Besoin Photo" width="50" height="50">
+                </div>
+                <!-- You can customize the displayed information here based on your requirements -->
+                <div class="media-body align-self-center">
+                  <!-- Additional information or actions if needed -->
+                  <button class="btn btn-primary" (click)="updateBesoin(besoin.idBesoin)">Modifier</button>
+                  <button class="btn btn-danger" (click)="deleteBesoin(besoin.idBesoin)">Supprimer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+ 
+   
+
+
+
+
+
+
+
+
+<div class="card-body">
+  <h2>Liste des Besoins</h2>
+  <table mat-table [dataSource]="besoins" class="mat-elevation-z8">
+    <!-- Columns -->
+    <ng-container matColumnDef="besoinId">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let besoin"> {{ besoin.besoinId }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let besoin"> {{ besoin.title }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let besoin"> {{ besoin.description }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let besoin"> {{ besoin.date | date: 'medium' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef> Image </th>
+      <td mat-cell *matCellDef="let besoin"> {{ besoin.image }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let besoin">
+        <button mat-icon-button color="primary" (click)="updateBesoin(besoin)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteBesoin(besoin.besoinId)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Table rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

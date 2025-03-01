@@ -1,0 +1,13 @@
+.star-rating {
+    font-size: 24px;
+}
+
+.full::before {
+    content: '\2605'; /* Unicode character for a filled star */
+    color: gold;
+}
+
+.empty::before {
+    content: '\2606'; /* Unicode character for an empty star */
+    color: grey;
+}

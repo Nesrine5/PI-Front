@@ -1,0 +1,151 @@
+
+
+
+
+
+
+
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Innovation Schedules</h4>
+                      <p class="card-category"> Feel inspired? Have an innovation to share? Click the button below to add your own!</p>
+                  </div>
+                  <div class="card-body">
+
+
+
+<!--
+      <div class="job-container">
+        <div class="job-info">
+          <p style="font-weight: bold;">Développeur - Full Stack - Java - Annecy</p>
+          <p style="font-style: italic;">Ce poste est ouvert au télétravail.</p>
+          <p style="font-weight: bold;">sopra hr</p>
+          <p style="font-weight: bold;">SOFTWARE</p>
+          <p style="font-weight: bold;">Temps complet</p>
+        </div>
+      
+        <div class="company-info">
+            <button class="red-button">I am interested</button>
+
+<br><br>
+          <p style="font-weight: bold;">Description de l'entreprise</p>
+          <p>Sopra HR Software, acteur global des Ressources Humaines, offre l'un des portefeuilles de services et solutions les plus complets du marché...</p>
+      
+          <p style="font-weight: bold;">Description du poste</p>
+          <p>Ce que nous vous proposons: Au sein de la R&D d'un éditeur reconnu du marché, vous développerez de nouvelles fonctionnalités...</p>
+        </div>
+      </div>
+
+-->
+      <div class="job-container">
+        <div class="job-info">
+      <div *ngIf="selectedBesoin">
+        <h2>{{ selectedBesoin.title }}</h2>
+        <p>{{ selectedBesoin.description }}</p>
+          <!-- Add your star rating component here -->
+<!-- Display the star rating -->
+<div class="star-rating">
+  <span *ngFor="let _ of [1, 2, 3, 4, 5]" 
+        [class.full]="selectedBesoin.starRating >= _" 
+        [class.empty]="selectedBesoin.starRating < _"
+        (click)="updateRating(selectedBesoin.besoinId, _)">
+  </span>
+</div>
+
+      </div>
+    </div>
+        <div class="company-info">
+          <!--
+   <button class="red-button" (click)="navigateToAddLivrable(selectedBesoin.besoinId)">NO</button><br>
+
+
+    -->
+      <button class="red-button" data-toggle="modal" data-target="#uploadFileModal">
+        I am interested
+      </button>
+      
+      </div></div>
+     
+
+
+
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  
+
+  
+  <!-- Upload File Modal -->
+  <div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="uploadFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="uploadFileModalLabel">Upload File</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Your file upload form -->
+          <form>
+            <!--<div class="form-group">
+              <label for="fileInput">Choose File:</label>
+              <input type="file" id="fileInput" (change)="selectFile($event)" name="fileInput" />
+            </div>-->
+            <div class="mb-3">
+            <label for="UploadimgControlInput" class="form-label">Upload File/Image</label>
+            <input type="file" class="form-control" id="UploadimgControlInput" formControlName="image" name="image" (change)="selectFile($event)"  placeholder="Upload Image">
+            <span class="input-group-text" id="inputGroupFileAddon">
+             <!-- <mat-icon>update</mat-icon>-->
+              <i class="fa fa-refresh"></i> 
+            </span>
+          </div>
+
+
+
+
+
+        
+          
+     
+
+
+
+
+
+
+
+            <div class="form-group">
+            <!-- <button class="btn btn-success btn-sm" [disabled]="!currentFile" (click)="upload()">Upload</button>--> 
+            <button class="btn btn-success btn-sm" [disabled]="!currentFile"   (click)="upload()">Upload</button>
+          
+            </div>
+          </form>
+  
+          <!-- Display uploaded files -->
+          <div *ngIf="fileUris.length > 0">
+            <div *ngFor="let fileUri of fileUris">
+              <img [src]="fileUri" alt="Uploaded Image" class="img-fluid" />
+            </div>
+          </div>
+  
+          <!-- Display error message if any -->
+          <div *ngIf="message" class="message">{{ message }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="button-icon" (click)="goBack()">
+    <i class="fas fa-chevron-circle-left"></i> Go Back
+  </button>

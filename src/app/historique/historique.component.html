@@ -1,0 +1,90 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    
+                        <div class="card-header" style="background-color: #808080;">
+                            <h4 class="card-title ">This is your history</h4>
+            
+                       
+                        
+                       
+                    </div>
+                    <div class="card-body">
+                        
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-table [dataSource]="fileInfos" class="mat-elevation-z8" matSort matSortActive="added" matSortDirection="desc">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header>Name</mat-header-cell>
+            <mat-cell *matCellDef="let file">{{ file.livrableNom }} {{ file.livrablePrenom }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="occupation">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Nom du Module</mat-header-cell>
+            <mat-cell *matCellDef="let file">   {{ file.livrableEvaluations[0].besoinTitle }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Files</mat-header-cell>
+            <mat-cell *matCellDef="let file">  <img *ngIf="file.url" [src]="file.url" height="100" alt="{{ file.name }}"></mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="added">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Added</mat-header-cell>
+            <mat-cell *matCellDef="let file">{{ file.livrableEvaluations[0].date | date:'yyyy-MM-dd' }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="etat">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Etat</mat-header-cell>
+            <mat-cell *matCellDef="let file">     {{ file.livrableEvaluations[0].etat }}</mat-cell>
+          </ng-container>
+  
+       
+  
+          <ng-container matColumnDef="rating">
+            <mat-header-cell *matHeaderCellDef>Vues</mat-header-cell>
+            <mat-cell *matCellDef="let livrable">
+              <div class="star-rating">
+                <!-- Display stars based on the current rating -->
+                <span *ngFor="let _ of [1, 2, 3, 4, 5]" [class.full]="currentRating >= _" [class.empty]="currentRating < _"
+                  (click)="submitRating(_)"></span>
+              </div>
+            </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="note">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Note</mat-header-cell>
+            <mat-cell *matCellDef="let file"> {{ file.livrableNote }}</mat-cell>
+          </ng-container>
+
+
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+  
+        <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+<button class="button-icon" (click)="goBack()">
+  <i class="fas fa-chevron-circle-left"></i> Go Back
+</button>

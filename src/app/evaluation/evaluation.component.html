@@ -1,0 +1,39 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Innovation Schedules</h4>
+                        <p class="card-category"> Feel inspired? Have an innovation to share? Click the button below to add your own!</p>
+                    </div>
+                    <div class="card-body">
+<!-- evaluation.component.html -->
+<!-- evaluation.component.html -->
+<!-- Assuming you have a div container for each evaluation -->
+<div *ngFor="let evaluation of evaluations">
+    <!-- Individual div for each evaluation -->
+    <div class="evaluation-container">
+        <p>Etat: {{ evaluation.etat }}</p>
+        <p>Date: {{ evaluation.date | date }}</p>
+
+        <!-- Display other properties as needed -->
+
+        <!-- Add your star rating component here -->
+      
+   
+    </div>
+</div>
+<div class="chart-container">
+            <canvas  id="MyChart" ></canvas>
+        </div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+  
+    

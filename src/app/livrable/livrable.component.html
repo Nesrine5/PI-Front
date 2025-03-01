@@ -1,0 +1,331 @@
+
+ <div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">MANAGE INNOVATIONS</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+
+ <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+ <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-uppercase mb-0">MANAGE INNOVATIONS</h5>
+          </div>
+          <div class="table-responsive">
+            <table class="table no-wrap user-table mb-0">
+              <thead>
+                <tr [@enterAnimation]>
+                    <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                    <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                    <th scope="col" class="border-0 text-uppercase font-medium">Occupation</th>
+                    <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
+                    <th scope="col" class="border-0 text-uppercase font-medium">Added</th>
+                    <th scope="col" class="border-0 text-uppercase font-medium">Etat</th>
+                    <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let livrable of livrables">
+                    <td class="pl-4">1</td>
+                  <td>
+                    <h5 class="font-medium mb-0">{{ livrable.nom }} {{ livrable.prenom }}</h5>
+                  </td>
+              
+                  <td>
+                    <span class="text-muted">{{ livrable.etablissement }}</span>
+                  </td>
+                  <td>
+                    <span class="text-muted">{{ livrable.email }}</span>
+                  </td>
+
+
+                <td>
+                    <span class="text-muted">
+                      {{ livrable.evaluations.length > 0 ? (livrable.evaluations[0].date | date: 'yyyy-MM-dd') : 'No Evaluation' }}
+                    </span>
+                  </td>
+                  
+                
+                    <td>
+                        <span class="text-muted">{{ livrable.evaluations.length > 0 ? livrable.evaluations[0].etat : 'No Evaluation' }}</span>
+                      </td>
+                      
+               
+                
+                  
+   
+
+  <td>
+    <button *ngIf="livrable.evaluations.length > 0" (click)="acceptEvaluation(livrable.evaluations[0])">
+        <mat-icon>thumb_up</mat-icon> Accepter
+      </button>
+      <button *ngIf="livrable.evaluations.length > 0" (click)="refuserEvaluation(livrable.evaluations[0])">
+      <mat-icon>thumb_down</mat-icon> Refuser
+    </button>
+  </td>
+  <td> 
+   
+
+
+            
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<head>
+    <!-- ... other head elements ... -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-xrMyyGg2vBYRbcjS8zBfD3a6ngWsbHpFiW4SZu3MqIm9kfmbQgtKM/LYDAqBqW48rRPfTtf/Ln/NskB4BUjcQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: #bbbaba;">
+                        <h4 class="card-title">MANAGE INNOVATIONS</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-table [dataSource]="livrables" class="mat-elevation-z8" matSort
+                                        matSortActive="added" matSortDirection="desc">
+                                        <!-- ... Your other mat-column-defs ... -->
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+            <mat-cell *matCellDef="let livrable">{{ livrable.nom }} {{ livrable.prenom }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="occupation">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Nom du Module</mat-header-cell>
+            <mat-cell *matCellDef="let livrable">{{ livrable.etablissement }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Files</mat-header-cell>
+            <mat-cell *matCellDef="let livrable">{{ livrable.file }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="added">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Added</mat-header-cell>
+            <mat-cell *matCellDef="let livrable">{{ livrable.evaluations.length > 0 ? (livrable.evaluations[0].date | date: 'yyyy-MM-dd') : 'No Evaluation' }}</mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="etat">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Etat</mat-header-cell>
+            <mat-cell *matCellDef="let livrable">{{ livrable.evaluations.length > 0 ? livrable.evaluations[0].etat : 'No Evaluation' }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Manage">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Manage</mat-header-cell>
+            <mat-cell *matCellDef="let livrable">
+              <a *ngIf="livrable.evaluations.length > 0" (click)="acceptEvaluation(livrable.evaluations[0])">
+                <i class="material-icons">check_circle</i>
+
+              </a>
+              <a *ngIf="livrable.evaluations.length > 0" (click)="refuserEvaluation(livrable.evaluations[0])">
+                <i class="material-icons">cancel</i>
+
+              </a>
+            </mat-cell>
+          </ng-container>
+          
+       
+  
+          <ng-container matColumnDef="rating">
+            <mat-header-cell *matHeaderCellDef>Vues</mat-header-cell>
+            <mat-cell *matCellDef="let livrable">
+              <div class="star-rating">
+                <!-- Display stars based on the current rating -->
+                <span *ngFor="let _ of [1, 2, 3, 4, 5]" [class.full]="currentRating >= _" [class.empty]="currentRating < _"
+                  (click)="submitRating(_)"></span>
+              </div>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"
+              [class.special-row]="row === livrables[0]"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+
+    .card {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .file-actions button {
+      margin-left: 5px;
+    }
+
+    .add-file-form {
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th, .table td {
+      text-align: center;
+    }
+  </style>
+  <title>File Manager</title>
+</head>
+<body>
+
+
+
+
+
+
+    <!-- Add New Folder/File -->
+    <div class="col-md-12 mt-3">
+      <div class="card add-file-form">
+        <div class="card-body">
+          <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group mr-2">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#createFolderModal"><i class="fa fa-plus"></i> Create Folder</button>
+
+
+
+<!-- Create Folder Modal -->
+<div class="modal fade" id="createFolderModal" tabindex="-1" role="dialog" aria-labelledby="createFolderModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createFolderModalLabel">Create Folder</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Form for creating a new folder -->
+        <form>
+          <div class="form-group">
+            <label for="folderName">Folder Name:</label>
+            <input type="text" class="form-control" id="folderName" placeholder="Enter folder name" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Folder</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">File Manager</h5>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>File Name</th>
+                  <th>Image</th>
+                  <th>Type</th>
+                  <th>Size (KB)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let file of fileInfos | async; let i = index">
+                  <td><i class="fa" [ngClass]="{'fa-folder': file.type === 'folder', 'fa-file': file.type !== 'folder'}"></i></td>
+                  <td>{{ file.name }}</td>
+                  <td (click)="openImageModal(file.url)">
+                    <img *ngIf="file.url" [src]="file.url" height="100" alt="{{ file.name }}">
+                  </td>
+                  <td>{{ file.type }}</td>
+                  <td>{{ file.size }}</td>
+                  <td>
+                    <button class="btn btn-info btn-sm" (click)="downloadFile(file.url)"><i class="fa fa-download"></i></button>
+                    <button class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger btn-sm" (click)="deleteFile(file.name)"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+

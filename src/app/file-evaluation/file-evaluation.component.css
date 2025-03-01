@@ -1,0 +1,8 @@
+.enlarged-image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  tr.first-row {
+    background-color: #ffc107; /* Change the background color to a distinct color */
+    /* Add any additional styles as needed */
+  }

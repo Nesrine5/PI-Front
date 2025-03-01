@@ -1,0 +1,53 @@
+<div class="col-md-12">
+  <div class="card card-container">
+    <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+   
+    <mat-card *ngIf="!isLoggedIn">
+      <mat-card-header style="text-align: center;">
+        <h2>User Login</h2>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <h4 class="modal-title" style="text-align: center;">Login with</h4>
+        <div class="login-icons" style="text-align: center;">
+          <div class="login-icon">
+            <a href="https://www.facebook.com/?locale=fr_FR" target="_blank">
+              <img src="..\assets\img\Facebook.png" style="width: 32px; height: 32px; display: inline-block; margin-right: 10px;">
+            </a>
+            <a href="https://github.com/" target="_blank">
+              <img src="..\assets\img\git.png" style="width: 32px; height: 32px; display: inline-block; margin-right: 10px;">
+            </a>
+            <a href="https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&client_id=1003720621743-n4osgschbqsqg68380c5ru2kqd0j148m.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Faccount.reverso.net%2Fsignin-google&scope=openid%20profile%20email&state=CfDJ8DkVbQqMaapHuSfW4kEQANXFkNWeUK_y5V8zkDhTVTb8DAB7nEk2lZDC3AoWhpgyPRdjFSlm9wKKNq66-nPkCzpJeBSk5vJ_CFDTPlqOVP7eL2yw-y59Jg5L6F6RA8TUX-aGbZCpue76eCez-pu69zuS-p8sC2nOFjqpw77RvrR9RtA3fJJpYP1WAn6M92X9w6YOdSt3Bo2wFFyYpRmqzYgdp1bhM6J-uPRTA5Y0h0d5T_90esU3yAaa5yYw5Hq-BwwkifcZ8Kh2PvmViAYQLZoo5wrcX5pl_W9zFjEMZ6jYcrADbneaYBBiFrsoeFfQw45UvslqbTHO6p04Shzyz2ItbkVl_3Ak1qHCT_i7DUtzTFrSkmuNVMPT2T722BgsR8Hlgg--aySnA1BU2HLm1UU&service=lso&o2v=2&theme=mn&ddm=0&flowName=GeneralOAuthFlow" target="_blank">
+              <img src="..\assets\img\email.png" style="width: 32px; height: 32px; display: inline-block;">
+            </a>
+          </div>
+        </div>
+        <hr class="login-divider">
+      </mat-card-content>
+      
+      <mat-card-content style="text-align: center;">
+        <form class="example-form" [formGroup]="loginform" (ngSubmit)="onSubmit()" style="width: 100%;">
+          <mat-form-field class="example-full-width">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" formControlName="username">
+
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+          </mat-form-field>
+                
+          <div>
+            <button mat-raised-button color="primary">Login</button>
+            <br>
+            <br>
+
+            <a routerLink="/register" mat-raised-button color="accent">New User?</a> <br>
+            <a routerLink="/forgot-password" mat-raised-button color="accent">Forgot Password?</a>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+   <!-- <div class="alert alert-success" *ngIf="isLoggedIn">
+      Logged in as {{ roles }}.
+    </div>-->
+  </div>
+</div>

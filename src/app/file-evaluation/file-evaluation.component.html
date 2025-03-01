@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+
+    .card {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .file-actions button {
+      margin-left: 5px;
+    }
+
+    .add-file-form {
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th, .table td {
+      text-align: center;
+    }
+  </style>
+  <title>File Manager</title>
+</head>
+<body>
+
+
+
+
+
+<!-- Create Folder Modal -->
+<div class="modal fade" id="createFolderModal" tabindex="-1" role="dialog" aria-labelledby="createFolderModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+   
+      <div class="modal-body">
+        <!-- Form for creating a new folder -->
+        <form>
+          <div class="form-group">
+            <label for="folderName">Folder Name:</label>
+            <input type="text" class="form-control" id="folderName" placeholder="Enter folder name" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Folder</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">File Manager</h5>
+          <div class="table-responsive">
+            <div class="d-flex align-items-center mb-3">
+              <div class="search-container">
+                <input type="text" (input)="searchSynonyms()" [(ngModel)]="searchTerm" class="form-control" placeholder="Rechercher...">
+                <button class="btn btn-outline-secondary">Rechercher</button>
+              </div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  
+                  <th>Nom du Module</th>
+                  <th>Image</th>
+                  <th>Added</th>
+                  <th>Etat</th>
+                  <th>Note</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let file of fileInfos | async; let i = index">
+                  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+                  <style>
+                    /* Define styles for the trophy icon */
+                    .fas.fa-trophy {
+                      color: gold; /* Change the color to gold */
+                      font-size: 24px; /* Adjust the font size */
+                      /* Add any additional styles as needed */
+                    }
+                     /* Define table and cell styles */
+  table {
+    border-collapse: collapse; /* Collapse border spacing */
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #dddddd; /* Add borders to table cells */
+    padding: 8px; /* Add padding to table cells */
+    text-align: center; /* Align content horizontally in cells */
+  }
+
+  /* Define the style for the first row */
+  tr.first-row {
+    background-color: #ffc107; /* Change the background color to a distinct color */
+    /* Add any additional styles as needed */
+  }
+                  </style>
+                  
+                  <td *ngIf="i === 0 && file.livrableEvaluations[0].etat === 'ACCEPTED'"><i   class="fas fa-medal" style="color: gold; font-size: 24px;"></i>
+                  </td>
+                  <td *ngIf="i != 0">
+                  </td>
+                 
+                  <td>{{ file.livrableNom && file.livrablePrenom ? file.livrableNom + ' ' + file.livrablePrenom : '' }}</td>
+                
+                  <td>
+                    <div *ngIf="file.livrableEvaluations && file.livrableEvaluations.length > 0">
+                      {{ file.livrableEvaluations[0].besoinTitle }}
+                    </div>
+                  </td>
+                  
+                  
+                  <td (click)="openImageModal(file.url)">
+                    <img *ngIf="file.url" [src]="file.url" height="100" alt="{{ file.name }}">
+                  </td>
+                  
+                  <td>
+                    <div *ngIf="file.livrableEvaluations && file.livrableEvaluations.length > 0">
+                      {{ file.livrableEvaluations[0].date | date:'yyyy-MM-dd' }}
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div *ngIf="file.livrableEvaluations && file.livrableEvaluations.length > 0">
+                      {{ file.livrableEvaluations[0].etat }}
+                    </div>
+                  </td>
+              
+               <!--  <td *ngIf="editNoteMode">
+                    <input type="number" [(ngModel)]="file.livrableNote" (blur)="editNoteMode = false" />
+                  </td>--> 
+                  <td *ngIf="!editNoteMode" (click)="editNoteMode = true; setFileIdAndNote(file)">{{ file.livrableNote }}</td>
+
+                 
+                  
+                  <td *ngIf="editNoteMode">
+                    <input type="number" [(ngModel)]="file.livrableNote" (blur)="updateLivrableNote(); editNoteMode = false;" />
+                  </td>
+
+
+                  <td>
+                    <button class="btn btn-info btn-sm"> <a href="{{ file.url }}" download>
+                      <i class="fa fa-download"></i>  </a></button>
+
+                   <!--    <button class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></button>-->
+                    <button class="btn btn-danger btn-sm" (click)="deleteFile(file.name)"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="chart-container">
+              <canvas  id="MyChart" ></canvas>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+    <mat-card class="example-card">
+      <h5 class="card-title">List of Files</h5>
+      <mat-card-content>
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let file of fileInfos | async; let i = index">
+            <a href="{{ file.url }}" download>
+              <i class="fa fa-download"></i>
+          </a>
+            <button mat-icon-button>
+              <mat-icon class="close-icon">close</mat-icon>
+              
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+-->
+
+
+    <!-- Your modal code (you can use Bootstrap modal or any other modal library) -->
+<div class="modal" tabindex="-1" role="dialog" *ngIf="selectedImage">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img [src]="selectedImage" class="img-fluid" alt="Enlarged Image" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

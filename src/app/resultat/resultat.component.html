@@ -1,0 +1,126 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Resultat</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      
+      <div *ngFor="let file of fileInfos | async; let i = index">
+        <div *ngIf="username === file.livrableNom">
+        <p>Nom: {{ file.livrableNom && file.livrablePrenom ? file.livrableNom + ' ' + file.livrablePrenom : '' }}</p>
+
+        <div *ngIf="file.livrableEvaluations && file.livrableEvaluations.length > 0">
+          Etat: {{ file.livrableEvaluations[0].etat }}
+       
+        
+
+        <ul>
+          <div class="buttons-container">
+            <button *ngFor="let link of shareLinks">
+              <a [href]="link?.link" target="_blank" rel="noreferrer">
+                {{ link?.title }}
+              </a>
+            </button>
+          </div>
+        </ul>
+       </div>
+      </div></div>
+    </mat-card-content>
+  </mat-card>
+  
+
+
+  <div *ngFor="let file of fileInfos | async; let i = index">
+    <div *ngIf="username === file.livrableNom">
+      <div *ngIf="file.livrableEvaluations && file.livrableEvaluations.length > 0 && file.livrableEvaluations[0].etat === 'en attente'">
+        <div class="container">
+          <div class="title">...</div>
+          <div class="content">
+            <p>Le Resultat est en cours</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="file.livrableEvaluations && file.livrableEvaluations.length > 0 && file.livrableEvaluations[0].etat === 'REFUSED'">
+        <div class="container">
+          <div class="title">...</div>
+          <div class="content">
+            <p>Nous vous remercions de l’intérêt que vous manifestez. Malheureusement, nous ne pouvons donner suite à votre candidature. 😔 Nous vous remercions cependant du temps que vous nous avez consacré. ⏳</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+
+
+ <div *ngFor="let file of fileInfos | async; let i = index">
+  <div>
+    <div >
+  <div class="container1">
+    <div  id="envelope">
+<!-- basado backface-visibility https://css-tricks.com/almanac/properties/b/backface-visibility/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opening Envelope with HTML & css</title>
+    </head>
+    
+    <body>
+        <div class="letter-image">
+            <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                    <div class="letter-border"></div>
+                    <div class="letter-title"></div>
+                    <div class="letter-context"></div>
+                    <div class="letter-context-body">
+                        <p><strong>🎉 Congratulations on Your Success! 🎉<br> Dear,{{username}},</strong><br> 
+
+                            I am thrilled to extend my warmest congratulations to you on emerging as the winner of our competition! Your dedication, hard work, and talent have truly shone through, and it is with great pleasure that we recognize your outstanding achievement.
+                            
+                            Your success not only demonstrates your exceptional abilities but also serves as an inspiration to everyone around you. Your commitment to excellence and your perseverance in the face of challenges have set you apart, and you truly deserve this moment of triumph.
+                            
+                            We are incredibly proud of what you have accomplished, and we have no doubt that you will continue to reach even greater heights in the future. Your victory is a testament to your skills and determination, and we are excited to see where your journey takes you next.
+                            
+                            Once again, congratulations on this well-deserved success! May this win be the first of many more victories to come.
+                            
+                            Best regards,</p>
+                    </div>
+                    <div class="letter-stamp">
+                        <div class="letter-stamp-inner"></div>
+                    </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+            </div>
+            <div class="shadow"></div>
+        </div>
+    </body>
+    
+    </html></div>
+</div>
+
+
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('open');
+        });
+    </script>
+       </div>
+      </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+    <button class="button-icon" (click)="goBack()">
+      <i class="fas fa-chevron-circle-left"></i> Go Back
+    </button>

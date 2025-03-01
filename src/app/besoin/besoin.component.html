@@ -1,0 +1,93 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Innovation Schedules</h4>
+                        
+                        <a (click)="navigateToHome()" mat-icon-button class="icon-right">
+                          <mat-icon>person</mat-icon>
+                        </a>
+                        
+                       
+                        
+                        <p class="card-category"> Feel inspired? Have an innovation to share? Click the button below to add your own!</p>
+                    </div>
+                    <div class="card-body">
+      <!-- Liste des Besoins -->
+   
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <div class="schedules-area pd-top-110 pd-bottom-120">
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-xl-7 col-lg-8">
+                      <div class="section-title text-center">
+                       <!--    <h2>Innovation Schedules</h2>
+                          <p>Feel inspired? Have an innovation to share? Click the button below to add your own!</p> -->
+                          <br><br>               
+          <p>Your contributions make a difference. Share your innovative ideas and let's make this community even more exciting! </p>
+  
+          <p>  If you have any questions or need further information, don't hesitate to reach out. Enjoy the learning journey!  </p>
+  <br><br><br>
+                      </div>
+                  </div>
+              </div>
+              <div class="evt-tab-inner text-center">
+                  <ul class="nav nav-tabs" id="ex1" role="tablist">
+                      <li class="nav-item" role="presentation">
+                          <a class="nav-link active" id="ex1-tab-1" data-toggle="pill" href="#ex1-tabs-1" role="tab" aria-selected="true"><span>Day 1</span>23 Jun 2020</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                          <a class="nav-link" id="ex1-tab-2" data-toggle="pill" href="#ex1-tabs-2" role="tab" aria-selected="false"><span>Day 2</span>23 Jun 2020</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                          <a class="nav-link" id="ex1-tab-3" data-toggle="pill" href="#ex1-tabs-3" role="tab" aria-selected="false"><span>Day 3</span>23 Jun 2020</a>
+                      </li>
+                  </ul>
+              </div>
+
+              <div class="tab-content" id="ex1-content">
+                <div class="tab-pane fade active show" id="ex1-tabs-1" role="tabpanel" (click)="selectedBesoin && user  && navigateToDetails(selectedBesoin.besoinId,user?.id)">
+                    <div class="row">
+                      <div class="col-lg-4 col-md-6" *ngFor="let besoin of besoins"  (click)="selectBesoin(besoin)">
+                        <ng-container *ngIf="!isEditing || (selectedBesoin?.besoinId !== besoin.besoinId); else editRow">
+                          <div class="single-schedules-inner">
+  
+                          <!--  <p>User ID: {{ user?.id }}</p>-->
+
+  
+                            <br>
+                            <div class="date">
+                              <i class="fa fa-calendar"></i>
+                              {{ besoin.date | date: 'medium' }}
+                            </div>
+                            <h5>{{ besoin.title }}</h5>
+                         <!--  <p>{{ besoin.description }}</p>--> 
+                            <div class="media">
+                              <div class="media-left">
+                                <img *ngIf="besoin.photoString" [src]="besoin.photoString" alt="Besoin Photo" width="50" height="50">
+                              </div><br>
+                 
+                            </div>
+                          </div>
+                        </ng-container>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+   
+  
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  

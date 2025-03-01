@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+  <title>Email Composition</title>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <!-- Inbox Menu and Contacts -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <a href="#page-inbox-compose.html" class="btn btn-danger btn-block">New Email</a>
+          <ul class="list-group mt-3">
+            <li class="list-group-item"><i class="fa fa-inbox"></i> Inbox <span class="badge badge-danger">4</span></li>
+            <!-- Other menu items -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <a href="#" class="btn btn-success btn-block"> + Contact</a>
+          <ul class="list-group mt-3">
+            <li class="list-group-item"><span class="badge badge-danger"></span> Adam Alister</li>
+            <!-- Other contacts -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Composition -->
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center">New Message</h5>
+          <form (ngSubmit)="sendEmail()">
+            <div class="form-group row">
+              <div class="form-group">
+                <label for="to" class="col-sm-1 control-label">To:</label>
+                <div class="col-sm-11">
+                  <input type="email" class="form-control" id="to" placeholder="Type email" [(ngModel)]="emailRequest.to" name="to" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cc" class="col-sm-1 control-label">CC:</label>
+                <div class="col-sm-11">
+                  <input type="email" class="form-control" id="cc" placeholder="Type email" [(ngModel)]="emailRequest.subject" name="cc">
+                </div>
+              </div>
+            </div>
+            <!-- Other form fields -->
+
+            <div class="btn-toolbar" role="toolbar">
+              <!-- Buttons for formatting -->
+            </div>
+
+            <div class="form-group">
+              <textarea class="form-control" id="message" name="body" rows="12" placeholder="Click here to reply" [(ngModel)]="emailRequest.body" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Send</button>
+              <button type="submit" class="btn btn-secondary">Draft</button>
+              <button type="submit" class="btn btn-danger">Discard</button>
+            </div>
+          </form>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<button class="button-icon" (click)="goBack()">
+  <i class="fas fa-chevron-circle-left"></i> Go Back
+</button>
+</body>
+
+
+</html>

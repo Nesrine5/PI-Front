@@ -1,0 +1,48 @@
+<div class="container profile-container" *ngIf="currentUser; else loggedOut">
+  <header class="jumbotron">
+    <h3>
+      <strong style="color: white;">Welcome, {{ currentUser.username }}!</strong>
+    </h3>
+  </header>
+  <div class="profile-details">
+    <div class="row">
+      
+      <div class="col-md-6">
+        <br>
+        <p>
+          <strong>Email:</strong> {{ currentUser.email }}
+        </p>
+      </div>
+      <div class="col-md-6">
+        <p>
+          <strong>Token:</strong> 
+          <span class="token">{{ currentUser.accessToken.substring(0, 20) }} ... {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}</span>
+        <div class="token-expiry-message">
+          <strong>(</strong>
+          <img src="..\assets\assets\img\attention.png" alt="Attention icon" style="width: 16px; height: 16px;">
+          <strong>  Your access token will expire after 24 hours )</strong>
+        </div>
+
+      </div>
+      
+      
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        
+          <strong>Roles:</strong>
+          <ul class="roles-list">
+            <li *ngFor="let role of currentUser.roles">{{ role }}</li>
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loggedOut>
+  <div class="container">
+    <p class="logged-out-message">Please login to view your profile.</p>
+  </div>
+</ng-template>

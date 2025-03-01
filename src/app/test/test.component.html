@@ -1,0 +1,374 @@
+
+
+<main class="content">
+    <div class="container p-0">
+
+		<h1 class="h3 mb-3">Messages</h1>
+
+		<div class="card">
+			<div class="row g-0">
+				<div class="col-12 col-lg-5 col-xl-3 border-right">
+
+					<div class="px-4 d-none d-md-block">
+						<div class="d-flex align-items-center">
+							<div class="flex-grow-1">
+								<input type="text" class="form-control my-3" placeholder="Search...">
+							</div>
+						</div>
+					</div>
+
+
+
+                    
+
+                    <ul class="list-group-item list-group-item-action border-0" *ngFor="let chat of chats" >
+                        <div class="badge bg-success float-right">5</div>
+                        <li class="d-flex align-items-start" (click)="openConversation(chat.id)"  >
+                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="rounded-circle mr-1" alt="{{ chat.secondUserName }}" width="40" height="40">
+                            <div class="about">
+                                <div class="flex-grow-1 ml-3">{{ chat.secondUserName }}</div>
+                                <div class="flex-grow-1 ml-3">{{ getSenderOfLastMessage(chat) }}</div>
+                                <div class="status" *ngIf="user">
+                                    <i [ngClass]="{ 'fa-circle': user.online, 'offline': !user.online }"></i>
+                                    {{ user.online !== undefined ? (user.online ? 'Online' : 'Offline') : 'Unknown' }}
+                                </div>
+                                <button  class="btn btn-sm btn-danger" (click)="deleteChat(chat.id)">
+                                    DELETE
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    
+					
+				
+			
+			
+
+					<hr class="d-block d-lg-none mt-1 mb-0">
+				</div>
+				<div class="col-12 col-lg-7 col-xl-9">
+					<div class="py-2 px-4 border-bottom d-none d-lg-block">
+						<div class="d-flex align-items-center py-1">
+							<div class="position-relative">
+								<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+							</div>
+							<div class="flex-grow-1 pl-3">
+								<strong>{{ secondUserName }}</strong>
+								<div class="text-muted small"><em>Typing...</em></div>
+							</div>
+							<div>
+                                <a href="javascript:void(0);" class="btn btn-outline-secondary" (click)="openCamera()">
+                                    <i class="fas fa-phone"></i>
+
+                                </a>
+
+                                <input type="file" accept="image/*" capture="camera" style="display: none;" #cameraInput (change)="onCameraCapture(cameraInput)">
+                                <a href="javascript:void(0);" class="btn btn-outline-secondary" (click)="openVideoCallPage()">
+                                    <i class="fa fa-video-camera"></i>
+                                </a>
+                                
+                                <input type="file" (change)="onFileSelected($event)"  style="display: none" id="fileInput">
+                                <!----------------------------IMAGE UPLOADING TRIGGER BUTTON -------------------------->
+                                <label for="fileInput" class="btn btn-outline-primary">
+                                    <i class="fa fa-image"></i>
+                                </label>
+                                <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="position-relative" *ngFor="let message of messages">
+                        <div class="chat-messages p-4">
+
+
+
+                            <div *ngIf="message.sender !== firstUserName" class="chat-message-left pb-4">
+                                <div>
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                    <div class="text-muted small text-nowrap mt-2">{{ message.time | date: 'shortTime' }}</div>
+
+                                </div>
+                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                    <a *ngIf="message.filePath" class="message my-message" [href]="message.filePath" download></a>
+                                    <img *ngIf="message.imagePath" class="message my-message" [src]="message.imagePath" alt="Uploaded image" style="width: 400px; height: auto;" />
+                                    <video *ngIf="message.videoPath" class="message my-message" [src]="message.videoPath" height="200" controls></video>  
+                                     <audio  class="message my-message"controls  *ngIf="message.audioPath">
+                                       <source [src]="message.audioPath" type="audio/mpeg">
+                                    </audio>
+                                    <div class="font-weight-bold mb-1">{{ message.sender === firstUserName ? 'You' : message.sender }}</div>
+                                    {{ message.contenu }}
+                                </div>
+                            </div>
+                    
+
+
+                            
+                            <div *ngIf="message.sender === firstUserName" class="chat-message-right pb-4">
+                                <div>
+                                    <div class="text-muted small text-nowrap mt-2">{{ message.time | date: 'shortTime' }}</div>
+
+                                </div>
+                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3" *ngIf="message.sender === firstUserName">
+                                    <a *ngIf="message.filePath" class="message my-message" [href]="message.filePath" download> </a>
+                                    <img *ngIf="message.imagePath" class="message my-message" [src]="message.imagePath" alt="Uploaded image" style="width: 400px; height: auto;" />
+                                 <video #videoElement *ngIf="message.videoPath" class="message my-message" [src]="message.videoPath" height="200" controls></video> 
+                                  
+                                 <ngx-audio-player *ngIf="message.audioPath" [audioUrl]="[message.audioPath]" [settings]="{ autoPlay: false }"></ngx-audio-player>
+
+                              
+                                 <audio controls  height="200">
+                                    <source [src]="message.audioPath" type="audio/webm">
+                                    Your browser does not support the audio element.
+                                  </audio>
+                                  
+
+
+                                    <div class="font-weight-bold mb-1" *ngIf="message.sender === firstUserName">{{ message.sender }}</div>
+                                    {{ message.contenu}}
+                                </div>
+                            </div>
+
+                            <ng-container *ngIf="searchText">
+                                <ul class="m-b-0" *ngFor="let message of filteredMessages" >
+                                <li class="clearfix" >
+                                    <div class="message-data text-right">
+                                        <span class="message-data-time">10:10 AM, Today</span>
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                                    </div>
+                                    <div class="message other-message float-right" [innerHTML]="highlightText(message.contenu)"></div>
+                                </li>
+                                </ul>
+                            </ng-container>
+                            
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+                    
+             
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<div class="flex-grow-0 py-3 px-4 border-top">
+    <div class="input-group">
+        <!-- Left side icons -->
+        <div class="input-group-prepend">
+            <button class="btn btn-secondary" type="button">
+                <i class="fas fa-camera"></i>
+            </button>
+   <!-- HTML Template -->
+<!-- HTML Template -->
+<div class="voice-recorder">
+        <button class="btn btn-secondary" type="button" (click)="startPlay()">
+            <i class="fas fa-microphone"></i>
+        </button>
+        <div *ngIf="recording" class="recording-indicator">
+            Recording...
+        </div>
+        <div class="progress" *ngIf="recording">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" [style.width]="recordingDuration + '%'" [attr.aria-valuenow]="recordingDuration" aria-valuemin="0" aria-valuemax="100"></div>
+    
+    </div>
+    
+</div>
+
+<button *ngIf="recording"  (click)="stopPlay()">X</button>
+
+
+
+
+  
+            <input type="file" (change)="onFileSelected($event)"  style="display: none" id="fileInput">
+            <!----------------------------IMAGE UPLOADING TRIGGER BUTTON -------------------------->
+            <label for="fileInput" class="btn btn-outline-primary">
+                <i class="fas fa-image"></i>
+            </label>
+
+
+
+
+              
+            <div>
+                <div>
+                  <button class="btn btn-secondary" type="button" *ngIf="!isVideoRecording && !videoBlobUrl" (click)="startVideoRecording()"> <i class="fas fa-video"></i></button>
+                  <button class="stopp-button" *ngIf="isVideoRecording && !videoBlobUrl" (click)="stopVideoRecordingg()"><i class="fas fa-stop"></i></button>
+                  <button class="cancel-button" *ngIf="!isVideoRecording && videoBlobUrl" (click)="clearVideoRecordedData()"><i class="fas fa-trash"></i></button>
+                  <button class="download-button" *ngIf="!isVideoRecording && videoBlobUrl" (click)="downloadVideoRecordedData()"><i class="fas fa-download"></i>   </button>
+                  <div id="videoTimer" *ngIf="isVideoRecording && !videoBlobUrl"> {{ videoRecordedTime }} </div>
+                </div>
+              </div>
+            
+           
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="text-center">
+                    <h3>
+                      <video #videoElement>
+                        <source *ngIf="!isVideoRecording && videoBlobUrl" [src]="videoBlobUrl">
+                      </video>
+                    </h3>
+                  </div>
+                </div>
+              </div>
+          
+            
+         
+           
+        
+
+
+
+            <button class="btn btn-secondary" type="button">
+                <i class="fas fa-plus"></i>
+            </button>
+         
+        </div>
+        <div class="input-group-append">
+        <!-- Input field for typing message -->
+        <input type="text" class="btn btn-secondary" placeholder="Type your message" (keydown)="startTyping()" [(ngModel)]="messageContent">
+       
+      <!-- Add a dropdown menu -->
+      <!-- Right side emojis -->
+      <button class="btn btn-secondary" type="button">
+        <i class="far fa-smile"></i>
+    </button>
+      
+  
+      
+        
+        <!-- Send button -->
+            <button class="btn btn-primary" type="button" (click)="addMessage()"> <mat-icon>send</mat-icon></button>
+        </div>
+    </div>
+</div></div></div>
+
+		</div>
+	</div>
+</main>
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+<button class="button-icon" (click)="goBackk()">
+  <i class="fas fa-chevron-circle-left"></i> Go Back
+</button>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+<audio [src]="path  | async">n</audio>
+
+
+
+
+
+
+<div id="my-app">
+	<div>
+	  <div>Audio</div>
+	  <div>
+		<button class="start-button" *ngIf="!isAudioRecording && !audioBlobUrl" (click)="startAudioRecording()"><i class="fas fa-microphone"></i>
+        </button>
+		<button class="stopp-button" *ngIf="isAudioRecording && !audioBlobUrl" (click)="stopAudioRecording()"><i class="fas fa-stop"></i></button>
+		<button class="cancel-button" *ngIf="!isAudioRecording && audioBlobUrl" (click)="clearAudioRecordedData()"><i class="fas fa-trash"></i></button>
+		<button class="download-button" *ngIf="!isAudioRecording && audioBlobUrl" (click)="downloadAudioRecordedData()"><i class="fas fa-download"></i></button>
+		<div id="audioTimer" *ngIf="isAudioRecording && !audioBlobUrl"> {{ audioRecordedTime }} </div>
+		<audio *ngIf="!isAudioRecording && audioBlobUrl"  controls>
+		  <source [src]="audioBlobUrl" type="audio/mp3">
+		</audio>
+        <ngx-audio-player *ngIf="!isAudioRecording && audioBlobUrl" [audioFiles]="[audioBlobUrl]" [settings]="{ autoPlay: false }"></ngx-audio-player>
+
+	  </div>
+	</div>
+
+
+  <!-- test.component.html 
+	<div>
+	  <div>
+        <button class="btn btn-secondary" type="button" *ngIf="!isVideoRecording && !videoBlobUrl" (click)="startVideoRecording()"> <i class="fas fa-video"></i></button>
+		<button class="stopp-button" *ngIf="isVideoRecording && !videoBlobUrl" (click)="stopVideoRecordingg()"><i class="fas fa-stop"></i></button>
+		<button class="cancel-button" *ngIf="!isVideoRecording && videoBlobUrl" (click)="clearVideoRecordedData()"><i class="fas fa-trash"></i></button>
+		<button class="download-button" *ngIf="!isVideoRecording && videoBlobUrl" (click)="downloadVideoRecordedData()"><i class="fas fa-download"></i>   </button>
+		<div id="videoTimer" *ngIf="isVideoRecording && !videoBlobUrl"> {{ videoRecordedTime }} </div>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-12">
+		<div class="text-center">
+		  <h3>
+			<video #videoElement>
+			  <source *ngIf="!isVideoRecording && videoBlobUrl" [src]="videoBlobUrl">
+			</video>
+		  </h3>
+		</div>
+	  </div>
+	</div>
+
+  </div>
+-->
+  <!-- test.component.html 
+
+<video #videoElement></video>
+
+<button (click)="startVideoRecording()" [disabled]="isVideoRecording">Start Recording</button>
+<button (click)="stopVideoRecordingg()" [disabled]="!isVideoRecording">Stop Recording</button>
+-->
+
+
+
+<audio controls>
+    <source src="https://firebasestorage.googleapis.com/v0/b/chat-ebce3.appspot.com/o/audio%2Frecorded_audio.webm?alt=media&token=a60a19cd-e02c-4e00-b953-14b019cfc2a9" type="audio/webm">
+    Your browser does not support the audio element.
+  </audio>
+
+   <p>Audio Player</p>
+   <div class="audio-player">
+    <audio controls>
+        <source src="https://firebasestorage.googleapis.com/v0/b/chat-ebce3.appspot.com/o/audio%2Frecorded_audio.webm?alt=media&token=a60a19cd-e02c-4e00-b953-14b019cfc2a9" type="audio/webm">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+<div class="form-control">
+  <label class="header">Profile Photo:</label>
+  
+  <input id="image" type="file" name="profile_photo" placeholder="Photo" required="" capture>
+</div>
